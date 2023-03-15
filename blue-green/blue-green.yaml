@@ -8,8 +8,8 @@ spec:
   to:
     kind: Service
     name: maor-hello-world
-    weight: 10
+    weight: 100
   alternateBackends:
   - kind: Service
     name: user8-hello-world-service
-    weight: 20
+    weight: 0
