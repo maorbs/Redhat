@@ -22,4 +22,4 @@ spec:
             value: {{ .Release.Name }}-service
           - name: PORT
             value: {{ .Values.service.servicePort }}
-    backoffLimit: 1
+      backoffLimit: 1
