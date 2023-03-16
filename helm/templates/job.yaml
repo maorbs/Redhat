@@ -8,15 +8,13 @@ metadata:
 spec:
   template:
     spec:
+      backoffLimit: 1
       containers:
       - name: github-issue
         image: registry.access.redhat.com/ubi8-minimal:8.7-1031
         envFrom:
         - secretRef:
             name: gh-details
-        - configMapRef:
-            name: issue-message
         command: ["/bin/bash", "-c"]
         args: ["curl -u $USERNAME:$TOKEN -X POST -d '{\"title\":\"Deployment sync Done\",\"body\":\"The web site not Healthy.\"}' $URL" ]
       restartPolicy: Never
-      backoffLimit: 1
