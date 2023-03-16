@@ -36,7 +36,7 @@ spec:
             failureThreshold: {{ .Values.probes.readiness.failureThreshold }} # 3 # count to decalre failure
           livenessProbe:
             httpGet:
-              path: {{ .Values.probes.readiness.path }} #/health/liveliness
+              path: {{ .Values.probes.liveness.path }} #/health/liveliness
               port: {{ .Values.containers.containerPort }}
               scheme: HTTP
             initialDelaySeconds: {{ .Values.probes.readiness.initialDelaySeconds }} # 1
