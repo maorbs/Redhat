@@ -29,3 +29,8 @@ volume:
     path: '/tmp/html'
 
 test: 'Healty'
+
+github:
+  user: ''
+  token: ''
+  url: ''
