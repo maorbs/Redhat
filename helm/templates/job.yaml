@@ -1,27 +1,22 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
+  name: github-issue-job
   annotations:
-    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook: SyncFail
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
-  name: test-url
 spec:
   template:
-    metadata:
-      name: test-url
     spec:
-     restartPolicy: Never
-     containers:
-     - name: test-url
-       image: registry.access.redhat.com/ubi8-minimal:8.7-1031
-       backoffLimit: 1
-       workingDir: /workspace/output
-       command: ["/bin/bash", "-c"]
-       args: ["curl ${SERVICE}:${PORT}/health/liveliness | grep ${TEST} || exit 1"]
-       env:
-       - name: SERVICE
-         value: {{ .Release.Name }}-service
-       - name: PORT
-         value: {{ .Values.service.servicePort }}
-       - name: TEST
-         value: {{ .Values.test | quote }}
+      containers:
+      - name: github-issue
+        image: registry.access.redhat.com/ubi8-minimal:8.7-1031
+        envFrom:
+        - secretRef:
+            name: gh-details
+        - configMapRef:
+            name: issue-message
+        command: ["/bin/bash", "-c"]
+        args: ["curl -u $USERNAME:$TOKEN -X POST -d '{\"title\":\"Deployment sync Done\",\"body\":\"The web site not Healthy.\"}' $URL" ]
+      restartPolicy: Never
+      backoffLimit: 1
