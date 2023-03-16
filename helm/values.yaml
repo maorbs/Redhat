@@ -31,6 +31,6 @@ volume:
 test: 'Healty'
 
 github:
-  user: ''
+  user: 'maorbs'
   token: ''
-  url: ''
+  url: 'https://api.github.com/repos/maorbs/Redhat/issues'
